@@ -7,8 +7,8 @@ ActiveAdmin.register Topic do
     h3 'You have ' + pluralize(topic.notes.count, 'note') + ' referencing ' + (topic.name)
     topic.notes.each do |note|
       div do
-        h1 note.title
-        h4 link_to "[#{note.id}]: You created this note on "
+        h1 note.title.presence || truncate(note.body, length: 20) 
+        h4 link_to "[#{note.id}]: You created this note on #{note.created_at.strftime('%a %b %e, %Y at %l:%M %p')} ", admin_note_path(note)
       end
     end
   end
