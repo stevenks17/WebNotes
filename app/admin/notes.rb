@@ -25,9 +25,13 @@ ActiveAdmin.register Note do
     selectable_column
     column :topic
     column 'Title' do |note|
-      note.title.presence || truncate(note.body, length: 20) 
-
+      link_to (note.title.presence) || (truncate( note.body, length: 30)), admin_note_path(note)
     end
+    column 'Body' do |note|
+      raw note.body.truncate_words(5)
+    end
+    column :created_at
+    column :updated_at
   end
 
 
