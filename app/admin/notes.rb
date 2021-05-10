@@ -7,8 +7,9 @@ ActiveAdmin.register Note do
 
   form title: 'WebNotes' do |f|
     f.inputs 'Note' do 
+      f.semantic_errors *f.object.errors.keys
       f.input :topic
-      f.input :title
+      f.input :title, input_html: {required: true}
       f.input :body, as: :quill_editor
     end
     f.actions
