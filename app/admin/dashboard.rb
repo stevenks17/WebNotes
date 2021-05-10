@@ -11,7 +11,7 @@ ActiveAdmin.register_page "Dashboard" do
         panel 'Recent Notes' do
           ul do
             Note.order(created_at: :desc).first(5).map do |note|
-              li link_to(note.title, admin_note_path(note))
+              li link_to(note.title.presence || truncate(note.body.html_safe), admin_note_path(note))
             end
           end
         end

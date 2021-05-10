@@ -2,12 +2,13 @@ ActiveAdmin.register Topic do
 
   permit_params :name, note_ids:[]
 
+  menu priority: 2
 
-  show title: 'Test' do
+  show title: 'Topics' do
     h3 'You have ' + pluralize(topic.notes.count, 'note') + ' referencing ' + (topic.name)
     topic.notes.each do |note|
       div do
-        h1 note.title.presence || (truncate(note.body, length: 30)) 
+        h1 note.title.presence || (truncate(note.body.html_safe, length: 30)) 
         h4 link_to "[#{note.id}]: You created this note on #{note.created_at.strftime('%a %b %e, %Y at %l:%M %p')} ", admin_note_path(note)
       end
     end

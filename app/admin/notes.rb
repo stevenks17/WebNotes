@@ -3,6 +3,7 @@ ActiveAdmin.register Note do
 
   permit_params :title, :body, :topic_id
 
+  menu priority: 3
 
   form title: 'WebNotes' do |f|
     f.inputs 'Note' do 
@@ -25,7 +26,7 @@ ActiveAdmin.register Note do
     selectable_column
     column :topic
     column 'Title' do |note|
-      link_to (note.title.presence) || (truncate( note.body, length: 30)), admin_note_path(note)
+      link_to (note.title.presence) || (truncate( note.body.html_safe, length: 30)), admin_note_path(note)
     end
     column 'Body' do |note|
       raw note.body.truncate_words(5)
